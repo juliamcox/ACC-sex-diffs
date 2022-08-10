@@ -21,11 +21,11 @@ switch loc
         end
     case 'imaging'
         if ismac
-            fbasename = '/Volumes/witten/Julia/DMS_Bandit/ACC_DMS_imaging/';
+            fbasename = '/Volumes/witten/Julia/DMS_Bandit/';
         elseif isunix
-            fbasename = '/mnt/cup/labs/witten/Julia/DMS_Bandit/ACC_DMS_imaging/';
+            fbasename = '/mnt/cup/labs/witten/Julia/DMS_Bandit/';
         elseif ispc
-            fbasename = '\\cup.pni.princeton.edu\witten\Julia\DMS_Bandit\ACC_DMS_imaging\';
+            fbasename = '\\cup.pni.princeton.edu\witten\Julia\DMS_Bandit\';
         end
     case 'behavior'
         if ismac

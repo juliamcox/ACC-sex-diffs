@@ -82,46 +82,27 @@ stats.glme_diff_anova = dataset2cell(anova(glme_diff,'DFMethod','Satterthwaite')
 
 %% Female laser v no laser by value
 for nb = 1:binNum
-    %if lillietest(X_f(:,nb)) | lillietest(X_laser_f(:,nb))
         whichTest{1}(nb) = 1;
         [stats.pvals_posthoc_choice(nb,1),~,stats.posthoc_choice{nb,1}] = signrank(X_f(:,nb), X_laser_f(:,nb),'Method','approximate');
-%     else
-%         [~,stats.pvals_posthoc(nb,1),stats.posthoc{1,nb}] = ttest(X_f(:,nb), X_laser_f(:,nb));
-%         whichTest{1}(nb) = 0; 
-%     end
 end
 
 % Male laser v no laser by value
 for nb = 1:binNum
-   % if lillietest(X_m(:,nb)) | lillietest(X_laser_m(:,nb))
+
         whichTest{2}(nb) = 1;
         [stats.pvals_posthoc_choice(nb,2),~,stats.posthoc_choice{nb,2}] = signrank(X_m(:,nb), X_laser_m(:,nb),'Method','approximate');
-%     else
-%         [~,pvals(nb,2),stats{2,nb}] = ttest(X_m(:,nb), X_laser_m(:,nb));
-%         whichTest{2}(nb) = 0; 
-%     end
 end
 
 % female yfp
 for nb = 1:binNum
-    %if lillietest(X_f(:,nb)) | lillietest(X_laser_f(:,nb))
         whichTest{3}(nb) = 1;
         [stats.pvals_posthoc_choice(nb,3),~,stats.posthoc_choice{nb,3}] = signrank(X_f_yfp(:,nb), X_laser_f_yfp(:,nb),'Method','approximate' );
-%     else
-%         [~,stats.pvals_posthoc(nb,1),stats.posthoc{1,nb}] = ttest(X_f(:,nb), X_laser_f(:,nb));
-%         whichTest{1}(nb) = 0; 
-%     end
 end
 
 % Male laser v no laser by value
 for nb = 1:binNum
-   % if lillietest(X_m(:,nb)) | lillietest(X_laser_m(:,nb))
         whichTest{4}(nb) = 1;
         [stats.pvals_posthoc_choice(nb,4),~,stats.posthoc_choice{nb,4}] = signrank(X_m_yfp(:,nb), X_laser_m_yfp(:,nb),'Method','approximate');
-%     else
-%         [~,pvals(nb,2),stats{2,nb}] = ttest(X_m(:,nb), X_laser_m(:,nb));
-%         whichTest{2}(nb) = 0; 
-%     end
 end
 
 
@@ -172,18 +153,18 @@ end
 figure();
 % Plot female nphr outcome laser v no laser
 subplot(3,2,1); hold on
-
-for nb = 1:numel(unique(thisValue_ptile))
-   xaxis = repmat(nb,1,size(mu_f,1));%+datasample(0:.01:.25,size(mu_f,1));
- %  scatter(xaxis, mu_f(:,nb), 15, 'MarkerFaceColor', [.3 .3 .3], 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
-end
-for nb = 1:numel(unique(thisValue_ptile))
-   xaxis = repmat(nb,1,size(mu_f,1));%-datasample(0:.01:.25,size(mu_f,1));
- %  scatter(xaxis, mu_f_laser(:,nb), 15, 'MarkerFaceColor', femaleC, 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
-end
+% 
+% for nb = 1:numel(unique(thisValue_ptile))
+%    xaxis = repmat(nb,1,size(mu_f,1));%+datasample(0:.01:.25,size(mu_f,1));
+%  %  scatter(xaxis, mu_f(:,nb), 15, 'MarkerFaceColor', [.3 .3 .3], 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
+% end
+% for nb = 1:numel(unique(thisValue_ptile))
+%    xaxis = repmat(nb,1,size(mu_f,1));%-datasample(0:.01:.25,size(mu_f,1));
+%  %  scatter(xaxis, mu_f_laser(:,nb), 15, 'MarkerFaceColor', femaleC, 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
+% end
 p=errorbar(nanmean(mu_f_laser),nanstd(mu_f_laser)./sqrt(size(mu_f_laser,1)), 'Color',femaleC,'LineWidth',1.5,'CapSize',0);
 p(2)=errorbar(1:numel(unique(thisValue_ptile)),nanmean(mu_f),nanstd(mu_f)./sqrt(size(mu_f,1)), 'Color',[.3 .3 .3],'LineWidth',1.5,'CapSize',0);
-%legend(p,{'laser';'no laser'})
+
 
 subplot(3,2,3); hold on
 plot(1:binNum,mu_f,'Color',[.3 .3 .3 .7],'LineWidth',1)
@@ -192,14 +173,14 @@ plot(1:binNum, mu_f_laser,'Color',[plotParams.femaleC .7],'LineWidth',1)
 
 subplot(3,2,2); hold on
 
-for nb = 1:numel(unique(thisValue_ptile))
-   xaxis = repmat(nb,1,size(mu_m,1));%+datasample(0:.01:.25,size(mu_m,1));
- %  scatter(xaxis, mu_m(:,nb), 15, 'MarkerFaceColor', [.3 .3 .3], 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
-end
-for nb = 1:numel(unique(thisValue_ptile))
-   xaxis = repmat(nb,1,size(mu_m,1));%-datasample(0:.01:.25,size(mu_m,1));
-  % scatter(xaxis, mu_m_laser(:,nb), 15, 'MarkerFaceColor', maleC, 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
-end
+% for nb = 1:numel(unique(thisValue_ptile))
+%    xaxis = repmat(nb,1,size(mu_m,1));%+datasample(0:.01:.25,size(mu_m,1));
+%  %  scatter(xaxis, mu_m(:,nb), 15, 'MarkerFaceColor', [.3 .3 .3], 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
+% end
+% for nb = 1:numel(unique(thisValue_ptile))
+%    xaxis = repmat(nb,1,size(mu_m,1));%-datasample(0:.01:.25,size(mu_m,1));
+%   % scatter(xaxis, mu_m_laser(:,nb), 15, 'MarkerFaceColor', maleC, 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
+% end
 p = errorbar(nanmean(mu_m),nanstd(mu_m)./sqrt(size(mu_m,1)), 'Color',[.3 .3 .3],'LineWidth',1.5,'CapSize',0);
 p(2)=errorbar(nanmean(mu_m_laser),nanstd(mu_m_laser)./sqrt(size(mu_m_laser,1)), 'Color',maleC,'LineWidth',1.5,'CapSize',0);
 
@@ -219,14 +200,14 @@ plot(1:binNum,mu_f_yfp,'Color',[.3 .3 .3 .7],'LineWidth',1)
 plot(1:binNum, mu_f_yfp_laser,'Color',[plotParams.femaleC .7],'LineWidth',1)
 errorbar(nanmean(mu_f_yfp),nanstd(mu_f_yfp)./sqrt(size(mu_f_yfp,1)), 'Color',[.3 .3 .3],'LineWidth',1.5,'CapSize',0)
 errorbar(nanmean(mu_f_yfp_laser),nanstd(mu_f_yfp_laser)./sqrt(size(mu_f_yfp_laser,1)), 'Color',femaleC,'LineWidth',1.5,'CapSize',0)
-for nb = 1:numel(unique(thisValue_ptile))
-   xaxis = repmat(nb,1,size(mu_f_yfp,1));%+datasample(0:.01:.25,size(mu_f_yfp,1));
-  % scatter(xaxis, mu_f_yfp(:,nb), 15, 'MarkerFaceColor', [.3 .3 .3], 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
-end
-for nb = 1:numel(unique(thisValue_ptile))
-   xaxis = repmat(nb,1,size(mu_f_yfp,1));%-datasample(0:.01:.25,size(mu_f_yfp,1));
-  % scatter(xaxis, mu_f_yfp_laser(:,nb), 15, 'MarkerFaceColor', femaleC, 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
-end
+% for nb = 1:numel(unique(thisValue_ptile))
+%    xaxis = repmat(nb,1,size(mu_f_yfp,1));%+datasample(0:.01:.25,size(mu_f_yfp,1));
+%   % scatter(xaxis, mu_f_yfp(:,nb), 15, 'MarkerFaceColor', [.3 .3 .3], 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
+% end
+% for nb = 1:numel(unique(thisValue_ptile))
+%    xaxis = repmat(nb,1,size(mu_f_yfp,1));%-datasample(0:.01:.25,size(mu_f_yfp,1));
+%   % scatter(xaxis, mu_f_yfp_laser(:,nb), 15, 'MarkerFaceColor', femaleC, 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
+% end
 
 subplot(3,2,6); hold on
 
@@ -234,14 +215,14 @@ plot(1:binNum,mu_m_yfp,'Color',[.3 .3 .3 .7],'LineWidth',1)
 plot(1:binNum, mu_m_yfp_laser,'Color',[plotParams.maleC .7],'LineWidth',1)
 errorbar(nanmean(mu_m_yfp),nanstd(mu_m_yfp)./sqrt(size(mu_m_yfp,1)), 'Color',[.3 .3 .3],'LineWidth',1.5,'CapSize',0)
 errorbar(nanmean(mu_m_yfp_laser),nanstd(mu_m_yfp_laser)./sqrt(size(mu_m_yfp_laser,1)), 'Color',maleC,'LineWidth',1.5,'CapSize',0)
-for nb = 1:numel(unique(thisValue_ptile))
-   xaxis = repmat(nb,1,size(mu_m_yfp,1));%+datasample(0:.01:.25,size(mu_m_yfp,1));
-  % scatter(xaxis, mu_m_yfp(:,nb), 15, 'MarkerFaceColor', [.3 .3 .3], 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
-end
-for nb = 1:numel(unique(thisValue_ptile))
-   xaxis = repmat(nb,1,size(mu_m_yfp,1));%-datasample(0:.01:.25,size(mu_m_yfp,1));
- %  scatter(xaxis, mu_m_yfp_laser(:,nb), 15, 'MarkerFaceColor', maleC, 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
-end
+% for nb = 1:numel(unique(thisValue_ptile))
+%    xaxis = repmat(nb,1,size(mu_m_yfp,1));%+datasample(0:.01:.25,size(mu_m_yfp,1));
+%   % scatter(xaxis, mu_m_yfp(:,nb), 15, 'MarkerFaceColor', [.3 .3 .3], 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
+% end
+% for nb = 1:numel(unique(thisValue_ptile))
+%    xaxis = repmat(nb,1,size(mu_m_yfp,1));%-datasample(0:.01:.25,size(mu_m_yfp,1));
+%  %  scatter(xaxis, mu_m_yfp_laser(:,nb), 15, 'MarkerFaceColor', maleC, 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
+% end
 
 
 for np = 1:6

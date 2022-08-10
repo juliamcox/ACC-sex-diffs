@@ -91,47 +91,19 @@ end
 
 %% Female laser v no laser by value
 for nb = 1:binNum
-    %if lillietest(X_f(:,nb)) | lillietest(X_laser_f(:,nb))
         whichTest{1}(nb) = 1;
         [stats{nt}.pvals_posthoc(nb,1),~,stats{nt}.posthoc{nb,1}] = signrank(X_f{nt}(:,nb), X_laser_f{nt}(:,nb));
-%     else
-%         [~,stats.pvals_posthoc(nb,1),stats.posthoc{1,nb}] = ttest(X_f(:,nb), X_laser_f(:,nb));
-%         whichTest{1}(nb) = 0; 
-%     end
+
 end
 
 % Male laser v no laser by value
 for nb = 1:binNum
-   % if lillietest(X_m(:,nb)) | lillietest(X_laser_m(:,nb))
         whichTest{2}(nb) = 1;
         [stats{nt}.pvals_posthoc(nb,2),~,stats{nt}.posthoc{nb,2}] = signrank(X_m{nt}(:,nb), X_laser_m{nt}(:,nb));
-%     else
-%         [~,pvals(nb,2),stats{2,nb}] = ttest(X_m(:,nb), X_laser_m(:,nb));
-%         whichTest{2}(nb) = 0; 
-%     end
+
 end
 
-% female yfp
-for nb = 1:binNum
-    %if lillietest(X_f(:,nb)) | lillietest(X_laser_f(:,nb))
-        whichTest{3}(nb) = 1;
-        [stats{nt}.pvals_posthoc(nb,3),~,stats{nt}.posthoc{nb,3}] = signrank(X_f_yfp{nt}(:,nb), X_laser_f_yfp{nt}(:,nb) );
-%     else
-%         [~,stats.pvals_posthoc(nb,1),stats.posthoc{1,nb}] = ttest(X_f(:,nb), X_laser_f(:,nb));
-%         whichTest{1}(nb) = 0; 
-%     end
-end
 
-% Male laser v no laser by value
-for nb = 1:binNum
-   % if lillietest(X_m(:,nb)) | lillietest(X_laser_m(:,nb))
-        whichTest{4}(nb) = 1;
-        [stats{nt}.pvals_posthoc(nb,4),~,stats{nt}.posthoc{nb,4}] = signrank(X_m_yfp{nt}(:,nb), X_laser_m_yfp{nt}(:,nb));
-%     else
-%         [~,pvals(nb,2),stats{2,nb}] = ttest(X_m(:,nb), X_laser_m(:,nb));
-%         whichTest{2}(nb) = 0; 
-%     end
-end
 
 end
 %% Mixed-effects regession of  difference between laser and no laser
@@ -312,54 +284,4 @@ for nt = 1:(ntimeBins)
 end
 
 
-figure();
-% Plot female nphr outcome laser v no laser
-for nt = 1:(ntimeBins)
-    subplot(2,ntimeBins,1+(nt-1)); hold on
-    for nb = 1:binNum
-        xaxis = cat(2,repmat(nb,1,size(X_f_yfp{nt},1))'-.2,repmat(nb,1,size(X_f_yfp{nt},1))'+.2);
-        plot(xaxis',cat(2,X_f_yfp{nt}(:,nb),X_laser_f_yfp{nt}(:,nb))','-','Color',[.3 .3 .3 .8],'LineWidth',.25)
-    end
-    for nb = 1:binNum
-        xaxis = repmat(nb,1,size(X_f_yfp{nt},1))-.2;%+datasample(0:.01:.25,size(X_f,1));
-        scatter(xaxis, X_f_yfp{nt}(:,nb), 15, 'MarkerFaceColor', [.3 .3 .3], 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
-    end
-    for nb = 1:binNum
-        xaxis = repmat(nb,1,size(X_f_yfp{nt},1))+.2;%-datasample(0:.01:.25,size(X_f,1));
-        scatter(xaxis, X_laser_f_yfp{nt}(:,nb), 15, 'MarkerFaceColor', femaleC, 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
-    end
-    
-    p=errorbar(nanmean(X_laser_f_yfp{nt}),nanstd(X_laser_f_yfp{nt})./sqrt(size(X_laser_f_yfp{nt},1)), 'Color',femaleC,'LineWidth',1.5,'CapSize',0);
-    p(2)=errorbar(1:binNum,nanmean(X_f_yfp{nt}),nanstd(X_f_yfp{nt})./sqrt(size(X_f_yfp{nt},1)), 'Color',[.3 .3 .3],'LineWidth',1.5,'CapSize',0);
-    legend(p,{'laser';'no laser'})
-    
-    subplot(2,ntimeBins,ntimeBins+(nt)); hold on
-    for nb = 1:binNum
-        xaxis = cat(2,repmat(nb,1,size(X_m_yfp{nt},1))'-.2,repmat(nb,1,size(X_m_yfp{nt},1))'+.2);
-        plot(xaxis',cat(2,X_m_yfp{nt}(:,nb),X_laser_m_yfp{nt}(:,nb))','-','Color',[.3 .3 .3 .8],'LineWidth',.25)
-    end
-    for nb = 1:binNum
-        xaxis = repmat(nb,1,size(X_m_yfp{nt},1))-.2;%+datasample(0:.01:.25,size(X_m,1));
-        scatter(xaxis, X_m_yfp{nt}(:,nb), 15, 'MarkerFaceColor', [.3 .3 .3], 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
-    end
-    for nb = 1:binNum
-        xaxis = repmat(nb,1,size(X_m_yfp{nt},1))+.2;%-datasample(0:.01:.25,size(X_m,1));
-        scatter(xaxis, X_laser_m_yfp{nt}(:,nb), 15, 'MarkerFaceColor', maleC, 'MarkerEdgeColor', 'none', 'MarkerFaceAlpha',.5);
-    end
-    p = errorbar(nanmean(X_m_yfp{nt}),nanstd(X_m_yfp{nt})./sqrt(size(X_m_yfp{nt},1)), 'Color',[.3 .3 .3],'LineWidth',1.5,'CapSize',0);
-    p(2)=errorbar(nanmean(X_laser_m_yfp{nt}),nanstd(X_laser_m_yfp{nt})./sqrt(size(X_laser_m_yfp{nt},1)), 'Color',maleC,'LineWidth',1.5,'CapSize',0);
-    legend(p,{'laser';'no laser'})
-       
-    for np = 1:ntimeBins*2
-        subplot(2,ntimeBins,np)
-        axis square
-        ylabel('Trial initiation latency (sec)')
-        set(gca,'YLim',[0,20],'XLim', [.5 max(unique(behaviorTable.thisValue_ptile))+.5])
-        if laserType==3
-            set(gca,'YLim',[0 20],'XLim', [.5 max(unique(behaviorTable.thisValue_ptile))+.5])
-        end
-        xlabel(sprintf('%s percentile',valType_plot))
-    end
-    
-end
 

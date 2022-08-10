@@ -93,7 +93,7 @@ plotInverseGaussian_parameters(fits,{'f_yfp';'m_yfp'});
 
 
 %% Plot mean latencies in value quantile bins
-% Figure 1E, SuppFig 5B
+% Figure 2E, SuppFig 7B
 laserType      = 1;
 for nl = 1:numel(latencyType)
     for nv = 1:numel(valType)
@@ -107,7 +107,7 @@ end
 
 
 %% Plot prob(choice = right) in value quantile bins
-% Figure 1F, SuppFig 5C
+% Figure 2F, SuppFig 7C
 laserType     = 1;
 for nv = 1:numel(valType_choice)
     stats_choiceQuant = choice_opto(behaviorTable,valType_choice{nv},binNum_choice,laserType);
@@ -124,3 +124,10 @@ for nl = 1:numel(latencyType)
         stats_time=latencyQuant_optoXtime(cohort,behaviorTable,valType{nv},binNum,laserType,zscoreFlag,latencyType{nl});
     end
 end
+
+%% Plot control session value modulation v. effect of inhibtion
+% Figure S9
+% Parameters
+groupingVar     = 'none'; % for fitting inverse gaussian distribution
+ver             = 1; % which parameterization of the inverse gaussian
+[corr_coeff,p_corr]=figureS9a(behaviorTable,cohort,ext,zscoreFlag,groupingVar,laserType);
