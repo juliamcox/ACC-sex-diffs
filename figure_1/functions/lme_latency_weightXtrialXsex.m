@@ -12,7 +12,6 @@ X.trial = nanzscore(X.trial);
 X.female = categorical(X.female);
 eval(sprintf('X.%s_quant = categorical(X.%s_quant);',valType{nv},valType{nv}));
 
-
 f = sprintf('trialInit_thresh ~ %s_quant*female*weight_zscore + %s_quant*female*trial + (1+%s_quant*trial + %s_quant*weight_zscore|aID)+(1+%s_quant*trial|aID:session)',valType{nv},valType{nv},valType{nv},valType{nv},valType{nv});
 
 mdl = fitlme(X,f,'DummyVarCoding','effects');
@@ -21,8 +20,7 @@ stats.mdl_anova = dataset2cell(anova(mdl,'DFMethod','Satterthwaite'));
 stats.mdl_coeff = dataset2cell(mdl.Coefficients);
 weights = min(X.weight_zscore):.1:max(X.weight_zscore);
 trial = unique(X.trial); 
-% posthoc contrasts (male v. female for each value bin); mid session, across
-% weights
+% posthoc contrasts (male v. female for each value bin); mid session, across weights
 for nb = 1:max(behaviorTable.qChosenDiff_quant)-1
    h0 = zeros(1,size(stats.mdl_coeff,1)-1);
    thisIdx = find(contains(stats.mdl_coeff(:,1), 'female')&contains(stats.mdl_coeff(:,1),num2str(nb)));
@@ -70,7 +68,7 @@ end
 % X.session = categorical(X.session);
 % 
 % 
-% f = 'trialInit ~ previousReward*female  + (1+ previousReward*weight_zscore + previousReward*trial|aID)';
+% f = 'trialInit ~ previousReward*female  + (1+ previousReward|aID)';
 % 
 % mdl = fitlme(X,f,'DummyVarCoding','effects');
 % stats.mdlOut = mdl;

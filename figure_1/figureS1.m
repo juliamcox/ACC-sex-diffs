@@ -40,41 +40,28 @@ weightSpreadsheet = fullfile(whereAreWe('figurecode'), 'raw_data','sessionWeight
 ext_laser         = 'LAS';
 cohort_opto       = 'ACC_DMS_nphr'; % which opto cohort? 
 intervalThresh  = 300;
-%% Which functions to run
 
 
 
-extractFlag(1) = 0; %(1)plot latency distribution by outcome(supp fig 1B,C);
-plotFlag(1)    = 0;   
+%% Load data
 
-extractFlag(2) = 0; %(2)fit inverse gaussian (supp fig 1A-B) 
-plotFlag(2) = 1;
-
-
-%% Concatenate all data 
-
-if extractAllData
-    extractData(aids_m,aids_f, perfThresh,qFile,weightSpreadsheet,ext_laser,binNum,binNum_choice,cohort_opto,sessionLength,intervalThresh);
-    load(fullfile(basefilename,sprintf('allBehaviorData_perfThresh%s_bin%s_binChoice%s_cohortOpto_%s_%s_intThresh%s_%s',num2str(perfThresh),num2str(binNum),num2str(binNum_choice),cohort_opto, sessionLength,num2str(intervalThresh),qFile)),'behaviorTable');
-else
-    try
-        % load all behavior data
-        load(fullfile(basefilename,sprintf('allBehaviorData_perfThresh%s_bin%s_binChoice%s_cohortOpto_%s_%s_intThresh%s_%s',num2str(perfThresh),num2str(binNum),num2str(binNum_choice),cohort_opto, sessionLength,num2str(intervalThresh),qFile)),'behaviorTable');
-    catch
-        extractData(aids_m,aids_f, perfThresh,qFile,weightSpreadsheet,ext_laser,binNum,binNum_choice,cohort_opto,sessionLength,intervalThresh);
-        load(fullfile(basefilename,sprintf('allBehaviorData_perfThresh%s_bin%s_binChoice%s_cohortOpto_%s_%s_intThresh%s_%s',num2str(perfThresh),num2str(binNum),num2str(binNum_choice),cohort_opto, sessionLength,num2str(intervalThresh),qFile)),'behaviorTable');
-    end
-end
-
+load(fullfile(basefilename,sprintf('allBehaviorData_perfThresh%s_bin%s_binChoice%s_cohortOpto_%s_%s_intThresh%s_%s',num2str(perfThresh),num2str(binNum),num2str(binNum_choice),cohort_opto, sessionLength,num2str(intervalThresh),qFile)),'behaviorTable');
 behaviorTable = behaviorTable(behaviorTable.laserSession==0,:);
-%% Plot
 
+%% Figure S1a-b
+stats_invGauss= fitLatencyDistributions_inverseGaussian_control(behaviorTable,latencyType);
 
-if plotFlag(1) 
-    stats_hist=logLatencyHistograms_ctrl(behaviorTable,lowCutoff,cutoff,aids_f,aids_m);
-end
+%% Figure S1c-d
+stats_hist=logLatencyHistograms_ctrl(behaviorTable,lowCutoff,cutoff,aids_f,aids_m);
 
-if plotFlag(2)
-    stats_invGauss= fitLatencyDistributions_inverseGaussian_control(behaviorTable,'none',valType,latencyType);
-end
+%% Figure S1e-f
+latencyXweight(behaviorTable,binNum,aids_f,aids_m)
 
+%% Figure S1g
+%latencyXtime(behaviorTable,basefilename,binNum,zscoreFlag,perfThresh,qFile,cohort)
+
+%% Figure S1h
+load(fullfile(basefilename,['ctrlLatencyStaySwitch_f_zscore' num2str(zscoreFlag) '_' cohort '_perfThresh_' num2str(perfThresh) '_cutoff_' num2str(cutoff) '_lowCutoff' num2str(lowCutoff) '.mat']));
+load(fullfile(basefilename,['ctrlLatencyStaySwitch_m_zscore' num2str(zscoreFlag) '_' cohort '_perfThresh_' num2str(perfThresh) '_cutoff_' num2str(cutoff) '_lowCutoff' num2str(lowCutoff) '.mat']));
+
+stats=plotStaySwitch_ctrl(latency_f,latency_m,{latencyType});

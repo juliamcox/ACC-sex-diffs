@@ -13,19 +13,19 @@ switch loc
         end
     case 'figurecode'
         if ismac
-            fbasename = '/Volumes/witten/Paper_Code/Cox_2022';
+            fbasename = '/Volumes/witten/Paper_Code/Cox_2022/to_share/';
         elseif isunix
-            fbasename = '/mnt/cup/labs/witten/Paper_Code/Cox_2022';
+            fbasename = '/mnt/cup/labs/witten/Paper_Code/Cox_2022/to_share/';
         elseif ispc
-            fbasename = '\\cup.pni.princeton.edu\witten\Paper_Code\Cox_2022\';
+            fbasename = '\\cup.pni.princeton.edu\witten\Paper_Code\Cox_2022\to_share\';
         end
     case 'imaging'
         if ismac
-            fbasename = '/Volumes/witten/Julia/DMS_Bandit/';
+            fbasename = '/Volumes/witten/Paper_Code/Cox_2022/to_share/processed_data/ACC_DMS_imaging/';
         elseif isunix
-            fbasename = '/mnt/cup/labs/witten/Julia/DMS_Bandit/';
+            fbasename = '/mnt/cup/labs/witten/Paper_Code/Cox_2022/to_share/processed_data/ACC_DMS_imaging/';
         elseif ispc
-            fbasename = '\\cup.pni.princeton.edu\witten\Julia\DMS_Bandit\';
+            fbasename = '\\cup.pni.princeton.edu\witten\Paper_Code\Cox_2022\to_share\processed_data\ACC_DMS_imaging/';
         end
     case 'behavior'
         if ismac
@@ -34,6 +34,14 @@ switch loc
             fbasename = '/mnt/cup/labs/witten/Julia/Operant/';
         elseif ispc
             fbasename = '\\cup.pni.princeton.edu\witten\Julia\Operant\';
+        end
+    case 'bilinear'
+        if ismac
+            fbasename = '/Volumes/witten/Julia/DMS_Bandit/ACC_DMS_imaging/bilinearRegression/';
+        elseif isunix
+            fbasename = '/mnt/cup/labs/witten/Julia/DMS_Bandit/ACC_DMS_imaging/bilinearRegression/';
+        elseif ispc
+            fbasename = '\\cup.pni.princeton.edu\witten\Julia\DMS_Bandit\ACC_DMS_imaging\bilinearRegression\';
         end
        
     case 'bucket'

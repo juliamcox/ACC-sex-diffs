@@ -3,7 +3,6 @@ age = choice_f.age;
 age = cat(2,age,choice_m.age);
 
 ageBins = prctile(age,linspace(0,100,3));
-
 [~,~,age_f] = histcounts(choice_f.age,ageBins);
 [~,~,age_m] = histcounts(choice_m.age,ageBins);
 

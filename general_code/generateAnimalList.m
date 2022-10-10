@@ -4,9 +4,8 @@ function [aids] = generateAnimalList(cohort)
 
 switch cohort
     case 'estrous'
-        aids = {'A10';'A12';'A20';'A24';'A32';'A33';'A11';'A13';'A21';'A22';'A31';'A14';'A23'};
+        aids = {'A10';'A11';'A12';'A13';'A14';'A20';'A21';'A22';'A23';'A24';'A31';'A32';'A33'};
         % not cycling '30''A23';
-        % bad fits: 'A11';'A13';'A21';'A22';'A31';'A14';
     case 'ACC_DMS_nphr_male'
         aids = {'N1';'N2';'N3';'T46';'106';'107';'108';'109';'110'};
     case 'ACC_DMS_nphr_female'
@@ -24,17 +23,6 @@ switch cohort
         aids = {'I15';'I14';'I19';'I17';'I13';'I24';'I30'};
     case 'DMS_nphr_d2_female'
         aids = {'I39';'I40';'I41';'I47';'I48';'I49';'I42';'I44'};
-    
-    case 'DMS_nphr_d1_yfp'
-        aids = {'D17';'D20';'D29';'D31';'D33'};
-    case 'DMS_nphr_d1_yfp_female'
-        aids = {'D17'};
-    case 'DMS_nphr_d1_yfp_male'
-        aids = {'D20';'D29';'D31';'D33'};
-    case 'DMS_nphr_d2_yfp_female'
-        aids = {'I45';'I46';'I50';'I53';'I51';'I52'};
-    case 'DMS_nphr_d2_yfp_male'
-        aids = {'I18';'I27';'I28';'I29';'I33';'I31'};
         
     case 'DMS_yfp_female'
         aids = {'I45';'I46';'I50';'I53';'I51';'I52';'D17'};

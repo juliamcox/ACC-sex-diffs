@@ -48,6 +48,7 @@ aID               = [];
 stay              = []; 
 trialTime         = [];
 block             = [];
+ipsiChoice        = []; 
 valTypes = {'qTot';'qChosenDiff';'qDiff'};
 
 for nv = 1:numel(valTypes)
@@ -101,10 +102,10 @@ end
 %% Load data for laser sessions 
 
 if sum(strcmp(ids_cohort,id))>0
-    try dataOpto = load(fullfile(basefilename, sprintf('value%s_perfThresh%s_%s',ext_laser,num2str(0),'qLearn_session_all_2022.mat')));
+    try dataOpto = load(fullfile(basefilename, sprintf('value%s_perfThresh%s_%s',ext_laser,num2str(0),'qLearn_session_all.mat')));
     catch
         valueExtraction_opto({id},qFile,ext_laser,0);
-        dataOpto = load(fullfile(basefilename, sprintf('value%s_perfThresh%s_%s',ext_laser,num2str(0),'qLearn_session_all_2022.mat')));
+        dataOpto = load(fullfile(basefilename, sprintf('value%s_perfThresh%s_%s',ext_laser,num2str(0),'qLearn_session_all.mat')));
   end
 
 %% concatenate laser data 
@@ -112,6 +113,7 @@ sessionIdx = unique(dataOpto.session);
 sessionCounter = 1;
 stay              = cat(1, stay, dataOpto.stay');
 choice            = cat(1,choice,dataOpto.leftChoice');
+ipsiChoice        = cat(1,ipsiChoice,dataOpto.leftChoice'==dataOpto.laserSide);
 previousReward    = cat(1,previousReward,dataOpto.prevOutcome');
 trialInit         = cat(1,trialInit,dataOpto.trialStart');
 trialInit_zscore  = cat(1,trialInit_zscore,dataOpto.trialStart_zscore');
@@ -312,6 +314,7 @@ sessionIdx = unique(dataAll.session);
 
 stay              = cat(1, stay, dataAll.stay');
 choice            = cat(1,choice,dataAll.leftChoice');
+ipsiChoice        = cat(1,ipsiChoice,dataAll.leftChoice'); 
 previousReward    = cat(1,previousReward,dataAll.prevOutcome');
 trialInit         = cat(1,trialInit,dataAll.trialStart');
 trialInit_zscore  = cat(1,trialInit_zscore,dataAll.trialStart_zscore');
@@ -425,6 +428,7 @@ behaviorTable.aID               = aID;
 behaviorTable.stay              = stay;
 behaviorTable.trialTime         = trialTime;
 behaviorTable.block             = block;
+behaviorTable.ipsiChoice        = ipsiChoice;
 for nv = 1:numel(valTypes)
    eval(sprintf('behaviorTable.%s_quant = %s_quant;',valTypes{nv},valTypes{nv})); 
    eval(sprintf('behaviorTable.%s_quant_choice = %s_quant_choice;',valTypes{nv},valTypes{nv}));

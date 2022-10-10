@@ -6,8 +6,6 @@ age = latency_f.age;
 age = cat(2,age,latency_m.age);
 
 ageBins = prctile(age,linspace(0,100,3));
-
-
 [~,~,age_f] = histcounts(latency_f.age,ageBins);
 [~,~,age_m] = histcounts(latency_m.age,ageBins);
 

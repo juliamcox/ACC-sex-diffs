@@ -21,11 +21,6 @@ plot([19:71], arrayfun(@(x) intercept + age*x, [19:71]), 'Color',plotParams.fema
 intercept = fit_m.Coefficients.Estimate(1);
 age = fit_m.Coefficients.Estimate(2);
 plot([19:71], arrayfun(@(x) intercept + age*x, [19:71]), 'Color',plotParams.maleC,'LineWidth',1.5)
+xlabel('Age (years)')
+ylabel('Trial initiation latency (s)'); 
 
-
-x = cat(1,latency_m.age',latency_f.age');
-y = cat(1,cellfun(@(x) nanmean(x),latency_m.trialStart_trials)',cellfun(@(x) nanmean(x),latency_f.trialStart_trials)');
-female = cat(1,zeros(size(latency_m.age')),ones(size(latency_f.age')));
-figure();
-scatterhist(x,y,'Group',female,'Color',cat(1,plotParams.maleC,plotParams.femaleC),'Marker','.','MarkerSize',15,...
-'Location','NorthEast','Direction','out','LineWidth',[1,1],'Kernel','on')
