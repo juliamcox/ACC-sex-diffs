@@ -46,26 +46,22 @@ for na = 1:numel(aids)
         for nb = 1:numel(qvals)-1
             qDiff_predChoice(na,nb) = sum(predChoice(qDiff_bin==nb))./sum(qDiff_bin==nb);
             [~,temp] = binofit(sum(predChoice(qDiff_bin==nb)), sum(qDiff_bin==nb));
-            %             [~, temp] = binointerval(sum(predChoice(qDiff_bin==nb)), sum(qDiff_bin==nb), 1-stdInterval);
             qDiff_predChoice_lower(na,nb) = temp(1);
             qDiff_predChoice_upper(na,nb) = temp(2);
             
             qDiff_realChoice(na,nb) = sum(realChoice(qDiff_bin==nb))./sum(qDiff_bin==nb);
             [~,temp] = binofit(sum(realChoice(qDiff_bin==nb)), sum(qDiff_bin==nb));
-            %             [~, temp] = binointerval(sum(realChoice(qDiff_bin==nb)), sum(qDiff_bin==nb), 1-stdInterval);
             qDiff_realChoice_lower(na,nb) = temp(1);
             qDiff_realChoice_upper(na,nb) = temp(2);
             %
             qDiffQuant_predChoice(na,nb) = sum(predChoice(qDiffQuant_bin==nb))./sum(qDiffQuant_bin==nb);
             [~,temp] = binofit(sum(predChoice(qDiffQuant_bin==nb)), sum(qDiffQuant_bin==nb));
-            %             [~, temp] = binointerval(sum(predChoice(qDiffQuant_bin==nb)), sum(qDiffQuant_bin==nb), 1-stdInterval);
             qDiffQuant_predChoice_lower(na,nb) = temp(1);
             qDiffQuant_predChoice_upper(na,nb) = temp(2);
             
             
             qDiffQuant_realChoice(na,nb) = sum(realChoice(qDiffQuant_bin==nb))./sum(qDiffQuant_bin==nb);
             [~,temp] = binofit(sum(realChoice(qDiffQuant_bin==nb)), sum(qDiffQuant_bin==nb));
-            %             [~, temp] = binointerval(sum(realChoice(qDiffQuant_bin==nb)), sum(qDiffQuant_bin==nb), 1-stdInterval);
             qDiffQuant_realChoice_lower(na,nb) = temp(1);
             qDiffQuant_realChoice_upper(na,nb) = temp(2);
             

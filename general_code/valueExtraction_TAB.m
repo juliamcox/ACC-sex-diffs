@@ -7,7 +7,8 @@ function valueExtraction_TAB(aids, qFile, sessionLength, perfThresh)
 % excludes omitted trials 
 
 
-basefilename = fullfile(whereAreWe('behavior'));
+basefilename = fullfile(whereAreWe('bucket'),'Operant');
+savehere = fullfile(whereAreWe('behavior'));
 
 for na = 1:numel(aids)
     
@@ -18,7 +19,8 @@ for na = 1:numel(aids)
     allDir = {allDir(:).name};
     
     % load value estimates
-    load(fullfile(basefilename, aids{na}, qFile));
+    %load(fullfile(fullfile(whereAreWe('figurecode'),'to_share','processed_data','Operant'), aids{na}, qFile));
+    load(fullfile(savehere,aids{na},qFile));
     % file list for q-values
     try
         thisFlist = {qLearn.fList.name};
@@ -177,7 +179,7 @@ for na = 1:numel(aids)
                                 prevOutcome_temp{nf} = data.reward(thisIdx-1);
                                 session_temp{nf}     = ones(size(thisIdx)).*fIdx;
                                 trialTime{nf}        = data.trialStart(thisIdx);
-                                block{nf}            = data.blocks.blockID.blockID_all(thisIdx);
+                                block{nf}            = data.blocks.blockIDAll(thisIdx);
 
                             end
                             
@@ -215,7 +217,7 @@ for na = 1:numel(aids)
                             prevOutcome_temp{nf} = data.reward(thisIdx-1);
                             session_temp{nf}     = ones(size(thisIdx)).*fIdx;
                             trialTime{nf}        = data.trialStart(thisIdx); 
-                            block{nf}            = data.blocks.blockID.blockID_all(thisIdx);
+                            block{nf}            = data.blocks.blockIDAll(thisIdx);
                         end
                         
                         % ipsi/contra
@@ -308,15 +310,15 @@ for na = 1:numel(aids)
         omit = cell2mat(omit);
         totalTrial = cell2mat(totalTrial); 
         trialTime = cell2mat(trialTime);
-        block = cell2mat(trialTime); 
+        block = cell2mat(block); 
     end
     if ~contains(qFile, '.mat')
         qFile = cat(2,qFile,'.mat');
     end
     try
-    save(fullfile(basefilename,aids{na},sprintf('valueTAB_%s_perfThresh_%s_%s',sessionLength,num2str(perfThresh),qFile)),'block','highProb','omit','totalTrial','qLeft','qRight',...
+    save(fullfile(savehere,aids{na},sprintf('valueTAB_%s_perfThresh_%s_%s',sessionLength,num2str(perfThresh),qFile)),'block','highProb','omit','totalTrial','qLeft','qRight',...
         'qChosen','qUnchosen','qIpsi','qContra','qDiff','qTot','qChosenDiff','trialStart','withdraw','leverPress','trialStart_zscore','withdraw_zscore','leverPress_zscore','idx','stay','leftChoice','prevOutcome','flist','session','trialTime')
-    save(fullfile(basefilename,aids{na},sprintf('valueTAB_flist_%s_perfThresh_%s_%s',sessionLength,num2str(perfThresh),qFile)),'flist')
+    save(fullfile(savehere,aids{na},sprintf('valueTAB_flist_%s_perfThresh_%s_%s',sessionLength,num2str(perfThresh),qFile)),'flist')
     catch
         keyboard
     end

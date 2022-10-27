@@ -10,7 +10,7 @@ if ~dfFlag
     tbl.est = est;
     
     tstat = cellfun(@(x) num2str(x,'%0.2f'), coeffIn(2:end,4),'UniformOutput',false);
-    tstat = cat(1,sprintf('F-stat(%d,%d)', 1,coeffIn{2,5}),tstat);
+    tstat = cat(1,sprintf('t-stat(%d,%d)', 1,coeffIn{2,5}),tstat);
     tbl.tstat = tstat;
     
     pvals = [];

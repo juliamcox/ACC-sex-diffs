@@ -54,19 +54,6 @@ for na = 1:numel(aids_f)
     coef_f_rand(na) = coef_f(na)+randEff(strcmp(randEffNames.Name,'qChosenDiff')&strcmp(randEffNames.Level,num2str(imagingIdx)));
 end
 
-%% Outcome modulation index by animal 
-
-for na = 1:numel(recs_f)
-    histLength = [0];
-    [rewHists_f,nrewHists_f,rew_avg_f,nrew_avg_f,pvals_all_f] = outcomeActivity(recs_f(na),frameRate,rawFlag,histLength,fullfile(whereAreWe('imaging'),'ACC_DMS_imaging'));
-    meanIdx(na) = nanmean((rew_avg_f-nrew_avg_f)./(rew_avg_f+nrew_avg_f));
-end
-
-for na = 1:numel(recs_m)
-    histLength = [0];
-    [rewHists_f,nrewHists_f,rew_avg_f,nrew_avg_f,pvals_all_f] = outcomeActivity(recs_m(na),frameRate,rawFlag,histLength,fullfile(whereAreWe('imaging'),'ACC_DMS_imaging'));
-    meanIdx_m(na) = nanmean((rew_avg_f-nrew_avg_f)./(rew_avg_f+nrew_avg_f));
-end
 
 %% Load imaging data and find percent outcome, reward and no reward by animal 
 
@@ -76,27 +63,16 @@ whichEvent = 6; %no reward
 a = .01; %significace level
 
 fname =  sprintf('linReg_fs%d_raw%d_zscore%d_basisSet_fig2_%s',frameRate,rawFlag,zscoreFlag,ver);
-fbasename = fullfile(whereAreWe('imaging'),'ACC_DMS_imaging');
+fbasename = fullfile(whereAreWe('imaging'));
 fbasename_bs = fullfile(whereAreWe('figurecode'),'general_code', 'basis_sets');
 
-% load basis set
-load(fullfile(fbasename, 'predictors', [ver '.mat']), 'bsIDs') % Load regression parameters for plotVer
-if iscell(bsIDs)
-    for nb = 1:numel(bsIDs)
-        load(fullfile(fbasename_bs, ['bs_' bsIDs{nb} '.mat']))
-        bs{nb} = (full(eval(['bs_' bsIDs{nb}])));
-        if zscoreFlag
-            bs{nb} = zscore(bs{nb});
-        end
-    end
-else
-    load(fullfile(fbasename_bs, ['bs_' bsIDs '.mat']))
-    bs = (full(eval(['bs_' bsIDs])));
-end
+% load basis set and events
+[cons ~, ~, ~, ~, ~, bsIDs,~,~] = getEvents(ver,frameRate);
 
-cons = getEvents(ver,frameRate); %get event names
-b_female = [];
-pmat_female = [];
+
+load(fullfile(fbasename_bs, ['bs_' bsIDs '.mat']))
+bs = (full(eval(['bs_' bsIDs])));
+
 b_bs_all = cell(1,numel(cons));
 a = 0.01; 
 for nr = 1:numel(recs_f)
@@ -180,6 +156,8 @@ figure('Units','inches','Position',[5,5,2.25 2.25]); hold on
 scatterhist(x,y,...
     'Location','NorthEast','Direction','out','LineWidth',[1,1],'Kernel','on');
 g = gca;
+ylabel('Value modulation')
+xlabel('%no rew - % rew')
 
 figure('Units','inches','Position',[5,5,2.25 2.25]); hold on
 subplot(1,2,1);
@@ -191,17 +169,11 @@ boxplot(x);
 ylabel('%no rew - % rew')
 set(gca,'YLim', g.XLim)
 
-[r.propDiff,p.propDiff] = corr(cat(1,coef_f',coef_m'), cat(1,thisPlot_f,thisPlot_m));
-[r.propDiff_m,p.propDiff_m] = corr(coef_m', thisPlot_m);
-[r.propDiff_f,p.propDiff_f] = corr(coef_f', thisPlot_f);
+[r.propDiff,p.propDiff] = corr(x,y');
 
 
 x(y==max(abs(y))) = [];
 y(y==max(abs(y))) = [];
 [r.diffProp_noOutlier,p.diffProp_noOutlier] = corr(x,y');
-% Plot w/o outlier
-figure('Units','inches','Position',[5,5,2.25 2.25]); hold on
-scatterhist(x,y,...
-    'Location','NorthEast','Direction','out','LineWidth',[1,1],'Kernel','on');
 
 

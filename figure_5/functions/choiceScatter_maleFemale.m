@@ -1,4 +1,4 @@
-function choiceScatter_maleFemale(recs_f,recs_m,frameRate,rawFlag,zscoreFlag,cohort)
+function choiceHist_maleFemale(recs_f,recs_m,frameRate,rawFlag,zscoreFlag,cohort)
 if nargin < 6
     cohort = 'ACC_DMS_imaging';
 end
@@ -18,13 +18,24 @@ histLength = [2 6];
 [rewHists_m,nrewHists_m,rew_avg_m,nrew_avg_m,pvals_all_m] = choiceActivity(recs_m,frameRate,rawFlag,zscoreFlag,histLength,cohort);
 [rewHists_f,nrewHists_f,rew_avg_f,nrew_avg_f,pvals_all_f] = choiceActivity(recs_f,frameRate,rawFlag,zscoreFlag,histLength,cohort);
 
-% [pvals_all_m] = bonf_holm(pvals_all_m,a);
-% [pvals_all_f] = bonf_holm(pvals_all_f,a);
+
+save(fullfile(savehere,['choiceHist_maleFemale.mat']));
 
 
-save(fullfile(savehere,['choiceScatter_maleFemale.mat']));
 
 
+fbasename = fullfile(whereAreWe('imaging'));
+
+
+savehere = fullfile(whereAreWe('figurecode'),'processed_data'); %generate save location
+if ~isfolder(savehere)
+    mkdir(savehere)
+end
+
+plotParams = load(fullfile(whereAreWe('figurecode'),'general_code','plotParams.mat')); 
+
+% load data 
+load(fullfile(savehere,'outcomeHist_maleFemale_full.mat'));
 
 %% Plot histogram of difference between reward and no reward on average
 femaleC = plotParams.femaleC;

@@ -3,7 +3,7 @@ function plotExampleTraces(recs)
 fs=20;
 rawFlag = 1;
 
-basefilename = fullfile(whereAreWe('imaging'),expt,recs);
+basefilename = fullfile(whereAreWe('imaging'),recs);
 
 load(fullfile(basefilename,'analyzed_neuron_final.mat'),'neuron')
 try

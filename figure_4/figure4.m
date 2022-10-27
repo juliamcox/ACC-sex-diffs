@@ -29,7 +29,7 @@ plotRegression(plotVer,frameRate, [sigVer '_m'],plotEvents,norm,histLen);
 plotRegression(plotVer,frameRate, [sigVer '_f'],plotEvents,norm,histLen);
 %% Figure 4f and S13b
 ver = 'outcome';
-sigEvents = 5;
+sigEvents = 6;
 [pval, chi2stat, posthoc]=plotPerEncoding_maleFemale(recs_f,recs_m,ver,frameRate, rawFlag, zscoreFlag,sigEvents);
 %% Figure 4g
 events = {'outcome'};

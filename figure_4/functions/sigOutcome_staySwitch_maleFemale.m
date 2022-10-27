@@ -1,4 +1,4 @@
-function sigOutcome_staySwitch_maleFemale(rawFlag,frameRate,zscoreFlag,sigVer,sigEvent,qFile,events,eventDur,kernelVer,expt)
+function sigOutcome_staySwitch_maleFemale(rawFlag,frameRate,zscoreFlag,sigVer,sigEvent,qFile,events,eventDur,kernelVer)
 
 %rawFlag: plot raw (1) or denoised (0) gcamp 
 %zscoreFlag: zscore fluorescence? 
@@ -17,11 +17,11 @@ end
 recs_f = generateAnimalList('ACC_DMS_imaging_female');
 recs_m = generateAnimalList('ACC_DMS_imaging_male');
 
-out_f = extractStaySwitch(recs_f,rawFlag,frameRate,zscoreFlag,sigVer,sigEvent,qFile,events,eventDur,kernelVer,expt);
-out_m = extractStaySwitch(recs_m,rawFlag,frameRate,zscoreFlag,sigVer,sigEvent,qFile,events,eventDur,kernelVer,expt);
+out_f = extractStaySwitch(recs_f,rawFlag,frameRate,zscoreFlag,sigVer,sigEvent,qFile,events,eventDur,kernelVer);
+out_m = extractStaySwitch(recs_m,rawFlag,frameRate,zscoreFlag,sigVer,sigEvent,qFile,events,eventDur,kernelVer);
 plotParams = load(fullfile(whereAreWe('figurecode'),'general_code','plotParams.mat'));
 
-plotExampleStaySwitch2(out_f,eventDur,plotParams.femaleC);
+%plotExampleStaySwitch2(out_f,eventDur,plotParams.femaleC);
 
 %% Plot   
 % Plot mean activity for reward -> stay v switch and no reward -> stay v switch
@@ -206,24 +206,19 @@ for ne = 1:numel(events)
 end
 end
 
-function out=extractStaySwitch(recs,rawFlag,frameRate,zscoreFlag,sigVer,sigEvent,qFile,events,eventDur,kernelVer,expt)
+function out=extractStaySwitch(recs,rawFlag,frameRate,zscoreFlag,sigVer,sigEvent,qFile,events,eventDur,kernelVer)
 
 findSig = 0;
-fbasename = fullfile(whereAreWe('imaging'),expt);
+fbasename = fullfile(whereAreWe('imaging'));
 nCVFolds = 5;
 
 % Load basis set
-fbasename_bs = fullfile(whereAreWe('bucket'),'DMS_Bandit', 'basis sets');
-[~, ~, ~, ~, ~, ~, bsIDs,~,~] = getEvents(sigVer,frameRate); 
-if iscell(bsIDs)
-    for nb = 1:numel(bsIDs)
-        load(fullfile(fbasename_bs, ['bs_' bsIDs{nb} '.mat']))
-        bs{nb} = (full(eval(['bs_' bsIDs{nb}])));
-    end
-else
-    load(fullfile(fbasename_bs, ['bs_' bsIDs '.mat']))
-    bs = (full(eval(['bs_' bsIDs])));
-end
+fbasename_bs = fullfile(whereAreWe('figurecode'),'general_code', 'basis_sets');
+[~, ~, ~, ~, ~, ~, bsIDs,~,~] = getEvents(sigVer,frameRate);
+
+load(fullfile(fbasename_bs, ['bs_' bsIDs '.mat']))
+bs = (full(eval(['bs_' bsIDs])));
+
 
 
 a = 0.01; 
@@ -322,7 +317,11 @@ for na = 1:numel(recs)
            x_basic = nanzscore(x_basic,1);
            xidx = (ismember(con_iden,1:numel(unique(con_iden))-2));
            y_pred = intercept+x_basic(:,xidx)*bb(xidx); % predicted values
+           try
            y_resid = dff(:,nn)-y_pred;
+           catch
+               keyboard
+           end
            
            load(fullfile(fbasename, recs{na}, sprintf('linReg_fs%d_raw%d_zscore%d_basisSet_fig2_%s.mat', frameRate,rawFlag,zscoreFlag,sigVer)),'b'); %load regression results for significance 
            

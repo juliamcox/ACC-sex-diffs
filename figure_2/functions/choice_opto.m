@@ -1,4 +1,4 @@
-function stats=choice_opto(behaviorTable,valType_plot,binNum,laserType)
+function stats=choice_opto(behaviorTable,valType_plot,binNum,laserType,cohort)
 
 plotParams = load(fullfile(whereAreWe('figurecode'),'general_code','plotParams.mat'));
 behaviorTable(isnan(behaviorTable.trialInit_thresh),:) = [];
@@ -18,10 +18,11 @@ stats.mdl = fitglme(X,f,'Distribution','binomial','DummyVarCoding','effects');
 
 %% Extract choice data for each animal 
 
-ids_f = unique(behaviorTable.aID(behaviorTable.opsin==1&behaviorTable.female==1));
-ids_f_yfp = unique(behaviorTable.aID(behaviorTable.opsin==0&behaviorTable.female==1));
-ids_m = unique(behaviorTable.aID(behaviorTable.opsin==1&behaviorTable.female==0));
-ids_m_yfp = unique(behaviorTable.aID(behaviorTable.opsin==0&behaviorTable.female==0));
+ids_m = generateAnimalList(sprintf('%s_male',cohort));
+ids_f = generateAnimalList(sprintf('%s_female',cohort));
+ids_m_yfp = generateAnimalList(sprintf('%s_yfp_male',cohort));
+ids_f_yfp = generateAnimalList(sprintf('%s_yfp_female',cohort));
+
 groups = {'f';'m';'f_yfp';'m_yfp'};
 
 for ng = 1:numel(groups)
@@ -108,7 +109,7 @@ end
 
 
 %% plot choice
-plotParams = load(fullfile(whereAreWe('bucket'),'Manuscript_figures','plotParams.mat'));
+plotParams = load(fullfile(whereAreWe('figurecode'),'general_code','plotParams.mat'));
 femaleC = plotParams.femaleC;
 maleC = plotParams.maleC;
 clear mu_f mu_f_laser mu_f_yfp mu_m mu_m_laser mu_m_yfp mu_m_yfp_laser mu_f_yfp_laser

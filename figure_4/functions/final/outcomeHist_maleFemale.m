@@ -1,14 +1,8 @@
 function outcomeHist_maleFemale
 
 
-fbasename = fullfile(whereAreWe('imaging'));
-
 
 savehere = fullfile(whereAreWe('figurecode'),'processed_data'); %generate save location
-if ~isfolder(savehere)
-    mkdir(savehere)
-end
-
 plotParams = load(fullfile(whereAreWe('figurecode'),'general_code','plotParams.mat')); 
 
 % load data 

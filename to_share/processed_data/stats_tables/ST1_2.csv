@@ -1,0 +1,10 @@
+name,est,tstat,pvals,ci1,ci2
+Name,β±standard error,"t-stat(1,817501)",p-value,lower,upper
+(Intercept),1.024±0.03,"33.25",2.52e-242,0.96,1.08
+previousReward_0,-0.879±0.02,"-37.10",5.27e-301,-0.93,-0.83
+trial,0.109±0.01,"8.98",2.75e-19,0.09,0.13
+female_0,-0.046±0.03,"-1.50",0.13,-0.11,0.01
+previousReward_0:trial,-0.071±0.01,"-11.44",2.76e-30,-0.08,-0.06
+previousReward_0:female_0,-0.003±0.02,"-0.12",0.91,-0.05,0.04
+trial:female_0,-0.030±0.01,"-2.43",0.02,-0.05,-0.01
+previousReward_0:trial:female_0,0.004±0.01,"0.66",0.51,-0.01,0.02

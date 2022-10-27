@@ -24,10 +24,10 @@ load(fullfile(fbasename,[savename '.mat']))
 [~,maxI_orig] = max(cell2mat(b_bs_all),[],2);
 [~, maxI] = sort(maxI_orig);
 
-% if contains(plotVer,'fHist')
-%     load(fullfile(whereAreWe('bucket'),'DMS_Bandit','Basic3_maxI'));
-%     keyboard
-% end
+if contains(plotVer,'fHist')
+    load(fullfile(whereAreWe('bucket'),'DMS_Bandit','Basic3_maxI'));
+    keyboard
+end
 
 %normalize regression coefficients 
 if ~contains(plotVer,'fHist')

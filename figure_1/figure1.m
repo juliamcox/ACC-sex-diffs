@@ -30,10 +30,10 @@ valType           = {'qChosenDiff'}; %which value to plot for latencies (alterna
 valType_choice    = {'qDiff'}; %which value to plot for choice (alternative: 'qChosen','qTot','qDiff','qRight','qLeft)
 latencyType       = {'trialInit_thresh'}; %which latency to plot (alternative: 'leverPress'  (time from lever presentation to lever press) or trialInit (latencies without disengagement cutoff)
 perfThresh        = 0.1; % stay probability reward - stay probability no reward performance threshold
-basefilename      = fullfile(whereAreWe('figureCode'), 'processed_data'); % where is the data
+basefilename      = fullfile(whereAreWe('figurecode'), 'processed_data'); % where is the data
 cutoff            = inf; % upper cutoff for latency
 lowCutoff         = 0; % lower cutoff for latency
-qFile             = 'qLearn_session_all_2022.mat'; %name of file with q-values
+qFile             = 'qLearn_session_all.mat'; %name of file with q-values
 fext              = 'fig1';
 weightSpreadsheet = fullfile(whereAreWe('figurecode'), 'raw_data','sessionWeights.xlsx');
 ext_laser         = 'LAS';
@@ -53,6 +53,7 @@ load(fullfile(basefilename,['ctrlLatency_f_zscore' num2str(zscoreFlag) '_' cohor
 %% Plot figure 1b
 stats_choice.outcome = choiceXoutcomeXsex_plot(choice_f, choice_m, behaviorTable,aids_f,aids_m);
 tbl_choice_outcome   = statsTable(stats_choice.outcome.mdl_anova, stats_choice.outcome.mdl_coeff, 1, 0,fullfile(basefilename,'stats_tables','ST1.csv'));
+statsTable(stats_choice.outcome.mdl_anova, stats_choice.outcome.mdl_coeff, 0, 1,fullfile(basefilename,'stats_tables','ST1_tstat.csv'));
 
 %% Plot figure 1c
 stats_latency.outcome   = latencyXoutcomeXsex_plot(latency_f, latency_m,latencyType,zscoreFlag,behaviorTable,aids_f,aids_m);
@@ -60,21 +61,25 @@ stats_latency.outcome   = latencyXoutcomeXsex_plot(latency_f, latency_m,latencyT
 anovaIn = eval(sprintf('stats_latency.outcome.%s.mdl_anova;', latencyType{1}));
 coefIn = eval(sprintf('stats_latency.outcome.%s.mdl_coeff;', latencyType{1}));
 tbl_latency_outcome     = statsTable(anovaIn, coefIn, 1, 0,fullfile(basefilename,'stats_tables','ST2.csv'));
+tbl_latency_outcome     = statsTable(anovaIn, coefIn, 0, 2,fullfile(basefilename,'stats_tables','ST2_tstat.csv'));
 
 %% Plot figure 1e
-load(fullfile(basefilename ,sprintf('qParams_perfThresh%s_%s_%s_%s.mat', num2str(perfThresh),sessionLength,qFile,ext)))
+load(fullfile(basefilename ,sprintf('qParams_perfThresh%s_%s_%s_%s', num2str(perfThresh),sessionLength,ext,qFile)))
 plotQValueParameters(params_f,params_m);
 
 %% Plot figure 1g
 
 stats_choice = choiceXvalueXsex_plot(choice_f, choice_m, valType_choice,binsChoice,behaviorTable,aids_f,aids_m);
+anovaIn             = stats_choice.mdl_anova_qDiff_quant;
+coefIn              = stats_choice.mdl_coeff_qDiff_quant;
+tbl_choice_value   = statsTable(anovaIn, coefIn, 0, 1,fullfile(basefilename,'stats_tables','ST4.csv'));
 
 %% Plot figure 1 h
 runReg = 1; % flag to fit mixed-effects model 
 stats_latency.value = latencyXvalueXsex_plot(latency_f, latency_m, valType,latencyType,zscoreFlag,bins,behaviorTable,aids_f,aids_m,runReg);
 if runReg
-    anovaIn             = stats_latency.value{1}.mdl_anova;
-    coefIn              = stats_latency.value{1}.mdl_coeff;
+    anovaIn             = stats_latency.value.mdl{1}.mdl_anova;
+    coefIn              = stats_latency.value.mdl{1}.mdl_coeff;
     tbl_latency_value   = statsTable(anovaIn, coefIn, 0, 1,fullfile(basefilename,'stats_tables','ST5.csv'));
 end
 

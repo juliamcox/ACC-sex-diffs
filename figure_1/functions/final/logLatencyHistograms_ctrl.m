@@ -110,6 +110,10 @@ b(2).FaceColor = 'none';
 pause(0.01);
 errorbar(b(1).XData+b(1).XOffset,nanmean(femaleH,1),nanstd(femaleH)./sqrt(sum(~isnan(femaleH(:,1)))),'Color',plotParams.femaleC,'LineStyle','none','CapSize',0)
 errorbar(b(2).XData+b(2).XOffset,nanmean(maleH,1),nanstd(maleH)./sqrt(sum(~isnan(maleH(:,1)))),'Color',plotParams.maleC,'LineStyle','none','CapSize',0)
+xaxis = repmat(b(1).XData+b(1).XOffset, size(femaleH,1),1);
+plot(xaxis,femaleH,'o','MarkerFaceColor',plotParams.femaleC,'MarkerEdgeColor','none','MarkerSize',4)
+xaxis = repmat(b(2).XData+b(2).XOffset, size(maleH,1),1);
+plot(xaxis,maleH,'o','MarkerFaceColor',plotParams.maleC,'MarkerEdgeColor','none','MarkerSize',4)
 ylabel('Proportion of trials')
 title('Reward')
 
@@ -141,6 +145,10 @@ b(2).FaceColor = 'none';
 pause(0.01);
 errorbar(b(1).XData+b(1).XOffset,nanmean(femaleH,1),nanstd(femaleH)./sqrt(sum(~isnan(femaleH(:,1)))),'Color',plotParams.femaleC,'LineStyle','none','CapSize',0)
 errorbar(b(2).XData+b(2).XOffset,nanmean(maleH,1),nanstd(maleH)./sqrt(sum(~isnan(maleH(:,1)))),'Color',plotParams.maleC,'LineStyle','none','CapSize',0)
+xaxis = repmat(b(1).XData+b(1).XOffset, size(femaleH,1),1);
+plot(xaxis,femaleH,'o','MarkerFaceColor',plotParams.femaleC,'MarkerEdgeColor','none','MarkerSize',4)
+xaxis = repmat(b(2).XData+b(2).XOffset, size(maleH,1),1);
+plot(xaxis,maleH,'o','MarkerFaceColor',plotParams.maleC,'MarkerEdgeColor','none','MarkerSize',4)
 ylabel('Proportion of trials')
 title('No reward')
 

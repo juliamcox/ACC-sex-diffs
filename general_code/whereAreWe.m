@@ -13,7 +13,8 @@ switch loc
         end
     case 'figurecode'
         if ismac
-            fbasename = '/Volumes/witten/Paper_Code/Cox_2022/to_share/';
+            fbasename = '/Users/julia/Documents/code/ACC-sex-diffs/to_share/';
+           % fbasename = '/Volumes/witten/Paper_Code/Cox_2022/to_share/';
         elseif isunix
             fbasename = '/mnt/cup/labs/witten/Paper_Code/Cox_2022/to_share/';
         elseif ispc
@@ -29,7 +30,8 @@ switch loc
         end
     case 'behavior'
         if ismac
-            fbasename = '/Volumes/witten/Julia/Operant/';
+           % fbasename = '/Volumes/witten/Julia/Operant/';
+           fbasename = '/Volumes/witten/Paper_Code/Cox_2022/to_share/processed_data/Operant';
         elseif isunix
             fbasename = '/mnt/cup/labs/witten/Julia/Operant/';
         elseif ispc

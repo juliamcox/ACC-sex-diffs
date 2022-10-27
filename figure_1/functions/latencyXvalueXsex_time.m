@@ -49,7 +49,7 @@ function [latency,bins,thisFlist,rewardBins] = value_ctrl(aids,zscoreFlag,binNum
 %% Parameter
 basefilename = fullfile(whereAreWe('behavior'));
 valTypes = {'qDiff';'qTot';'qChosenDiff'};% Value types to extract 
-latencyTypes = {'trialInit';'withdraw';'leverPress'};% Latency types to extract
+latencyTypes = {'trialInit';'leverPress'};% Latency types to extract
 ntimeBins = 4; %how many time bins
 ntimeBins_fine = 30; 
 
@@ -112,7 +112,6 @@ for na = 1:numel(aids)
             eval(sprintf('thisLatency{nt}.%s = [];', latencyTypes{nl}));
         end
         for nv = 1:numel(valTypes)
-            eval(sprintf('thisLatency{nt}.%s = [];', valTypes{nv}));
             eval(sprintf('thisLatency{nt}.%s_quant = [];', valTypes{nv}));
         end
         thisLatency{nt}.prevOutcome = [];
@@ -124,27 +123,30 @@ for na = 1:numel(aids)
     thisFlist = flist{na}(sessionIdx);
     for nf = 1:numel(thisFlist)
         thisTrials = find(session == sessionIdx(nf));
+        thisTable = behaviorTable(strcmp(behaviorTable.aID,aids{na})&behaviorTable.session == sessionIdx(nf),:);
         load(fullfile(whereAreWe('bucket'),'Operant',aids{na}, sprintf('%s_TAB.mat',thisFlist{nf}(2:end-4))));
         data.rt.trialInit = data.rt.nosePoke;
         % indices for value variables (which do not include omitted trials, or first trial) during time bin nt
-        trialIndex_val = arrayfun(@(x,y) find(data.trialStart(data.trialIdx_all)>=x&data.trialStart(data.trialIdx_all)<y), rangeStart(1:end-1), rangeStart(2:end)+1,'UniformOutput',false);
+        %trialIndex_val = arrayfun(@(x,y) find(data.trialStart(data.trialIdx_all)>=x&data.trialStart(data.trialIdx_all)<y), rangeStart(1:end-1), rangeStart(2:end),'UniformOutput',false);
         % indices for data structure variables during time bin nt
-        trialIndex = arrayfun(@(x,y) find(data.trialStart>=x&data.trialStart<y), rangeStart(1:end-1), rangeStart(2:end)+1,'UniformOutput',false);
+        trialIndex = arrayfun(@(x,y) find(data.trialStart>=x&data.trialStart<y), rangeStart(1:end-1), rangeStart(2:end),'UniformOutput',false);
         trialIndex = cellfun(@(x) x(ismember(x,data.trialIdx_all)), trialIndex, 'UniformOutput', false);
         
-        trialIndex_fine = arrayfun(@(x,y) find(data.trialStart>=x&data.trialStart<y), rangeStart_fine(1:end-1), rangeStart_fine(2:end)+1,'UniformOutput',false);
+        trialIndex_fine = arrayfun(@(x,y) find(data.trialStart>=x&data.trialStart<y), rangeStart_fine(1:end-1), rangeStart_fine(2:end),'UniformOutput',false);
         trialIndex_fine = cellfun(@(x) x(ismember(x,data.trialIdx_all)), trialIndex_fine, 'UniformOutput', false);
         
         thisRewardBins(nf,:) = cellfun(@(x) sum(data.reward(x)), trialIndex_fine);
         
         for nt = 1:(ntimeBins)
             for nl = 1:numel(latencyTypes)
-                eval(sprintf('thisLatency{nt}.%s = cat(1,thisLatency{nt}.%s, data.rt.%s(trialIndex{nt})'');', latencyTypes{nl},latencyTypes{nl},latencyTypes{nl}));
+                %eval(sprintf('thisLatency{nt}.%s = cat(1,thisLatency{nt}.%s, data.rt.%s(trialIndex{nt})'');', latencyTypes{nl},latencyTypes{nl},latencyTypes{nl}));
+                eval(sprintf('thisLatency{nt}.%s = cat(1,thisLatency{nt}.%s, thisTable.%s(ismember(thisTable.trial,trialIndex{nt})));',latencyTypes{nl},latencyTypes{nl},latencyTypes{nl}));
             end
             try
             for nv = 1:numel(valTypes)
-                eval(sprintf('thisLatency{nt}.%s = cat(1,thisLatency{nt}.%s, %s_bins(thisTrials(trialIndex_val{nt})));', valTypes{nv},valTypes{nv},valTypes{nv}));
-                eval(sprintf('thisLatency{nt}.%s_quant = cat(1,thisLatency{nt}.%s_quant, behaviorTable.%s_quant(thisTrials(trialIndex_val{nt})));', valTypes{nv},valTypes{nv},valTypes{nv}));
+                eval(sprintf('thisLatency{nt}.%s_quant = cat(1,thisLatency{nt}.%s_quant, thisTable.%s_quant(ismember(thisTable.trial,trialIndex{nt})));',valTypes{nv},valTypes{nv},valTypes{nv}));
+%                 %s_bins(thisTrials(trialIndex{nt})));', valTypes{nv},valTypes{nv},valTypes{nv}));
+%                 eval(sprintf('thisLatency{nt}.%s_quant = cat(1,thisLatency{nt}.%s_quant, behaviorTable.%s_quant(thisTrials(trialIndex{nt})));', valTypes{nv},valTypes{nv},valTypes{nv}));
             end
             catch
                 keyboard
@@ -163,11 +165,9 @@ for na = 1:numel(aids)
                     keyboard
                 elseif zscoreFlag == 0
                     for nl = 1:numel(latencyTypes)
-                        thisIdx = eval(sprintf('find(thisLatency{nt}.%s==nb)',valTypes{nv})); % find trials
-                        eval(sprintf('latency{nt}.%s_%s(na,nb) = nanmean(thisLatency{nt}.%s(thisIdx));', latencyTypes{nl}, valTypes{nv}, latencyTypes{nl}));
-                        eval(sprintf('latency{nt}.%s_%s_count(na,nb) = numel(thisIdx);', latencyTypes{nl}, valTypes{nv}));
                         thisIdx = eval(sprintf('find(thisLatency{nt}.%s_quant==nb)',valTypes{nv}));
                         eval(sprintf('latency{nt}.%s_%s_quant(na,nb) = nanmean(thisLatency{nt}.%s(thisIdx));', latencyTypes{nl}, valTypes{nv}, latencyTypes{nl}));
+                        eval(sprintf('latency{nt}.%s_%s_count(na,nb) = numel(thisIdx);', latencyTypes{nl}, valTypes{nv}));
                     end
                 elseif zscoreFlag == 2
                     for nl = 1:numel(latencyTypes)

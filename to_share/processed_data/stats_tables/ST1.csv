@@ -1,0 +1,10 @@
+name,est,fstat,df1,df2,pvals
+Term,β±standard error,"F-stat(1,817501)",DF1,DF2,p-value
+(Intercept),1.024±0.03,"1105.89",1,817501,2.520e-242
+previousReward,-0.879±0.02,"1376.31",1,817501,5.269e-301
+trial,0.109±0.01,"80.61",1,817501,2.751e-19
+female,-0.046±0.03,"2.26",1,817501,0.133
+previousReward:trial,-0.071±0.01,"130.80",1,817501,2.760e-30
+previousReward:female,-0.003±0.02,"0.01",1,817501,0.908
+trial:female,-0.030±0.01,"5.90",1,817501,0.015
+previousReward:trial:female,0.004±0.01,"0.44",1,817501,0.508
