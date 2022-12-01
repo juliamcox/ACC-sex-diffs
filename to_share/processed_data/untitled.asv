@@ -1,6 +1,0 @@
-median(param)
-prctile(param,75)
-prctile(param,25)
-intrange = 1.5*(prctile(param,75)-prctile(param,25));
-min(min(param),prctile(param,25)-intrange)
-min(max(param),prctile(param,75)+intrange)
