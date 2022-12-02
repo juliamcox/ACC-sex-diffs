@@ -1,7 +1,7 @@
 function latencyXweight(behaviorTable,binNum,ids_f_all,ids_m_all)
 
 
-plotParams = load(fullfile(whereAreWe('figurecode'),'general_code','plotParams.mat'));
+plotParams = load(fullfile(whereAreWe('data'),'plotParams.mat'));
 
 aids = unique(behaviorTable.aID);
 

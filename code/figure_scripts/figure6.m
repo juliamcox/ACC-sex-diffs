@@ -16,14 +16,14 @@ sideVer    = 'v26'; % version of regression for relative side value
 chosenVer  = 'v10'; % version of regression for relative chosen value
 sigLevel   = 0.01;
 
-%% 6b
+%% 6b and extended data figure 10d
 bilinearRegression_summary(chosenVer,dataset,rawFlag)
 
 %% 6c
 outcomeIdx = 5;
 bilinearRegression_valueSummary(chosenVer,dataset,linspace(1,100,4),outcomeIdx,rawFlag,frameRate,qFile)
 
-%% 6e
+%% 6e and extended data figure 10e
 bilinearRegression_summary(sideVer,dataset,rawFlag)
 
 %% 6f

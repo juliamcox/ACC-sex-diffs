@@ -1,4 +1,5 @@
-%%Extended data 10
+%%Extended data figure 2c-d
+
 clear all
 close all
 
@@ -12,14 +13,13 @@ rawFlag    = 1;
 zscoreFlag = 1; 
 qFile      = 'qLearn_session_all'; %name of file with q-values
 dataset    = 'dataset_single1';
-sideVer    = 'v26'; % version of regression for relative side value
-chosenVer  = 'v10'; % version of regression for relative chosen value
+totVer    = 'v12'; % version of regression for total value
 sigLevel   = 0.01;
-%% extended data fig 10d
 
-bilinearRegression_summary(chosenVer,dataset,rawFlag)
+%% extended data figure 2c
+bilinearRegression_summary(totVer,dataset,rawFlag)
 
-
-%% 6e
-bilinearRegression_summary(sideVer,dataset,rawFlag)
+%% extended data figure 2d
+outcomeIdx = 5;
+bilinearRegression_valueSummary(totVer,dataset,linspace(1,100,4),outcomeIdx,rawFlag,frameRate,qFile)
 
