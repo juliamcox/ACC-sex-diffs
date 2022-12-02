@@ -1,6 +1,0 @@
-name,est,tstat,pvals,ci1,ci2
-Name,β±standard error,"t-stat(1,140)",p-value,lower,upper
-(Intercept),4.427±0.12,"37.75",2.92e-75,4.19,4.66
-sex_0,-0.498±0.12,"-4.25",3.95e-05,-0.73,-0.27
-outcome_0,1.536±0.09,"16.64",5.44e-35,1.35,1.72
-sex_0:outcome_0,-0.290±0.09,"-3.14",0.00,-0.47,-0.11

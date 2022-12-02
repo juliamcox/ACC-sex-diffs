@@ -1,6 +1,0 @@
-name,est,fstat,df1,df2,pvals
-Term,β±standard error,"F-stat(1,7.199999e+01)",DF1,DF2,p-value
-(Intercept),4.427±0.12,"1424.76",1,72,3.473e-49
-sex,-0.498±0.12,"18.02",1,72,6.416e-05
-outcome,1.536±0.09,"276.99",1,72,2.203e-26
-sex:outcome,-0.290±0.09,"9.84",1,72,0.002
