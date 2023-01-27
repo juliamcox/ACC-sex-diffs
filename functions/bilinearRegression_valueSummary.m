@@ -31,6 +31,10 @@ for ne = 1:numel(events)
     end
 end
 
+try
+load(fullfile(whereAreWe('bilinear'),sprintf('%s_activityXvalue.mat',regVer))); 
+
+catch
 %% Plot trial-averaged activity and predicted activity
 
 % Load each neuron's data and extract predicted and real data for plotting
@@ -249,7 +253,8 @@ for ne = 1:numel(events)
         end
     end
 end
-
+save(fullfile(whereAreWe('bilinear'),sprintf('%s_activityXvalue.mat',regVer)),'realPlot_neg_f','realPlot_neg_m','realPlot_pos_f','realPlot_pos_m');
+end
 for ne = toPlot
     %   keyboard
     for ng = 1:numel(gains{ne})

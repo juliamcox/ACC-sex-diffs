@@ -9,7 +9,7 @@ rawFlag    = 1;
 zscoreFlag = 1; 
 
 %% Figure 4b (plots fluorescence traces for each neuron 1 by 1 with the spatial profile from CNMFe for a randomly selected time) 
-plotExampleTraces(recs_m{5})
+%plotExampleTraces(recs_m{5})
 
 %% Figure 4d
 outcomeHist_maleFemale

@@ -5,7 +5,7 @@ close all
 cohort          = 'ACC_DMS_nphr';
 ext             = 'LAS'; 
 zscoreFlag      = 0; % zscore latencies?
-basefilename    = fullfile(whereAreWe('figureCode'), 'processed_data');
+basefilename    = fullfile(whereAreWe('data'));
 groupingVar     = 'none';
 ver             = 1; %parameterization 
 %% Supp Figure 2

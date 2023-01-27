@@ -64,7 +64,7 @@ a = .01; %significace level
 
 fname =  sprintf('linReg_fs%d_raw%d_zscore%d_basisSet_fig2_%s',frameRate,rawFlag,zscoreFlag,ver);
 fbasename = fullfile(whereAreWe('imaging'));
-fbasename_bs = fullfile(whereAreWe('data'),'basis_sets');
+fbasename_bs = fullfile(whereAreWe('basis_sets'));
 
 % load basis set and events
 [cons ~, ~, ~, ~, ~, bsIDs,~,~] = getEvents(ver,frameRate);
