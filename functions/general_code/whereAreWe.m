@@ -28,24 +28,24 @@ switch loc
     case 'imaging'
         if ismac
             fbasename = [];
-            error('Add directory location for data')
+            error('Add directory location for data (ACC_DMS_imaging folder)')
         elseif isunix
             fbasename = [];
-            error('Add directory location for data')
+            error('Add directory location for data (ACC_DMS_imaging folder)')
         elseif ispc
             fbasename = [];
-            error('Add directory location for data')
+            error('Add directory location for data (ACC_DMS_imaging folder)')
         end
     case 'bilinear'
         if ismac
             fbasename = [];
-            error('Add directory location for data')
+            error('Add directory location for data (in ACC_DMS_imaging\bilinearRegression)')
         elseif isunix
             fbasename = [];
-            error('Add directory location for data')
+            error('Add directory location for data (in ACC_DMS_imaging\bilinearRegression)')
         elseif ispc
             fbasename = [];
-            error('Add directory location for data')
+            error('Add directory location for data (in ACC_DMS_imaging\bilinearRegression)')
         end
         
   
