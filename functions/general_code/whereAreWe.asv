@@ -1,12 +1,11 @@
 function fbasename = whereAreWe(loc)
 
-loc = lower(loc);
+loc = lower(loc); 
 
 switch loc
     case 'basis_sets'
         if ismac
-            fbasename = [];
-            error('Add directory location for data')
+            fbasename = '/Users/julia/Documents/code/ACC-sex-diffs/functions/general_code/basis_sets/';
         elseif isunix
             fbasename = [];
             error('Add directory location for data')
@@ -16,19 +15,18 @@ switch loc
         end
     case 'data'
         if ismac
-            fbasename = [];
-            error('Add directory location for data')
+            fbasename ='/Volumes/witten/Paper_Code/Cox_2022/to_share/data';
         elseif isunix
             fbasename = [];
-            error('Add directory location for data')
+            error('Add directory location for data') 
         elseif ispc
             fbasename = [];
-            error('Add directory location for data')
+            error('Add directory location for data') 
         end
     case 'imaging'
         if ismac
-            fbasename = [];
-            error('Add directory location for data')
+            fbasename = '/Volumes/witten/Paper_Code/Cox_2022/to_share/data/ACC_DMS_imaging/';
+            %  fbasename = '/Volumes/witten/Julia/DMS_Bandit';
         elseif isunix
             fbasename = [];
             error('Add directory location for data')
@@ -38,8 +36,7 @@ switch loc
         end
     case 'bilinear'
         if ismac
-            fbasename = [];
-            error('Add directory location for data')
+            fbasename = '/Volumes/witten/Paper_Code/Cox_2022/to_share/data/ACC_DMS_imaging/bilinearRegression/';
         elseif isunix
             fbasename = [];
             error('Add directory location for data')
@@ -47,6 +44,6 @@ switch loc
             fbasename = [];
             error('Add directory location for data')
         end
-        
+     
   
 end
