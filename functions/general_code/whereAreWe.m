@@ -6,13 +6,13 @@ switch loc
     case 'basis_sets'
         if ismac
             fbasename = [];
-            error('Add directory location for data')
+            error('Add directory location for data (in general_code folder)')
         elseif isunix
             fbasename = [];
-            error('Add directory location for data')
+            error('Add directory location for data (in general_code folder)')
         elseif ispc
             fbasename = [];
-            error('Add directory location for data')
+            error('Add directory location for data (in general_code folder)')
         end
     case 'data'
         if ismac
