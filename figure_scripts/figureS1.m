@@ -12,4 +12,4 @@ aids_m        = {'110';'N2';'105';'N5';'107';'D29';'I28';'109';'108';'N1';'D15';
 figCounter = [1 2];
 plotPsychCurves(sessionLength, perfThresh, qFile, binNum, aids_f, 1,figCounter)
 figCounter = [3 4];
-plotPsychCurves(sessionLength, perfThresh, qFile, binNum, aids_m, 0)
+plotPsychCurves(sessionLength, perfThresh, qFile, binNum, aids_m, 0,figCounter)
