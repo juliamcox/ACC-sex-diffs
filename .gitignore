@@ -1,5 +1,25 @@
 
 *.pkl
-*.mat
 *.pickle
 to_share/Archive.zip
+qModel/run1_2/alphas_mice.mat
+qModel/run1_2/betas.mat
+qModel/run1_2/betas_mice.mat
+qModel/run1_2/sides.mat
+qModel/run1_2/sides_mice.mat
+qModel/run1_2/stays.mat
+qModel/run1_2/stays_mice.mat
+qModel/run3/alphas_mice.mat
+qModel/run3/betas.mat
+qModel/run3/betas_mice.mat
+qModel/run3/sides.mat
+qModel/run3/sides_mice.mat
+qModel/run3/stays.mat
+qModel/run3/stays_mice.mat
+qModel/run4/alphas_mice.mat
+qModel/run4/betas.mat
+qModel/run4/betas_mice.mat
+qModel/run4/sides.mat
+qModel/run4/sides_mice.mat
+qModel/run4/stays.mat
+qModel/run4/stays_mice.mat
