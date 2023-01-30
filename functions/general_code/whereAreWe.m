@@ -25,6 +25,17 @@ switch loc
             fbasename = [];
             error('Add directory location for data')
         end
+    case 'behavior'
+        if ismac
+            fbasename = [];
+            error('Add directory location for data (Operant folder)')
+        elseif isunix
+            fbasename = [];
+            error('Add directory location for data (Operant folder)')
+        elseif ispc
+            fbasename = [];
+            error('Add directory location for data (Operant folder)')
+        end
     case 'imaging'
         if ismac
             fbasename = [];
